@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kuis Interaktif TKJ</title>
+<style>
+    body {
+        font-family: Poppins, sans-serif;
+        background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+        text-align: center;
+        padding: 40px;
+    }
+    .container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    h2 { margin-bottom: 20px; }
+    button {
+        padding: 12px 20px;
+        border-radius: 12px;
+        border: none;
+        background: #6ea8fe;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.2s;
+    }
+    button:hover {
+        transform: scale(1.1);
+        background: #4a90f5;
+    }
+    .option {
+        background: #eef4ff;
+        padding: 12px;
+        border-radius: 10px;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .option:hover {
+        background: #dce8ff;
+        transform: scale(1.02);
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2 id="question">Loading...</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Soal Selanjutnya ➜</button>
+    <h3 id="score"></h3>
+</div>
+
+<script>
+let quiz = [
+    {
+        q: "TKJ singkatan dari…",
+        o: ["Teknik Komunikasi Jaringan", "Teknik Komputer Jaringan", "Teknisi Komputer Jaringan", "Telekomunikasi Komputer Jaringan"],
+        a: 1
+    },
+    {
+        q: "Perangkat untuk menghubungkan beberapa komputer dalam satu jaringan adalah…",
+        o: ["RAM", "Router", "Processor", "USB Hub"],
+        a: 1
+    },
+    {
+        q: "Kabel jaringan yang paling umum digunakan adalah…",
+        o: ["Coaxial", "Fiber Optic", "UTP", "HDMI"],
+        a: 2
+    },
+    {
+        q: "Fungsi IP Address adalah…",
+        o: ["Mengirim suara", "Memberi identitas perangkat", "Mempercepat internet", "Mendinginkan CPU"],
+        a: 1
+    },
+    {
+        q: "Perangkat untuk membagi koneksi internet adalah…",
+        o: ["Switch", "Router", "Access Point", "Modem"],
+        a: 3
+    }
+];
+
+let index = 0;
+let score = 0;
+
+function loadQuestion() {
+    document.getElementById("question").innerText = quiz[index].q;
+    let opt = "";
+    quiz[index].o.forEach((o, i) => {
+        opt += `<div class='option' onclick='check(${i})'>${o}</div>`;
+    });
+    document.getElementById("options").innerHTML = opt;
+}
+
+function check(i) {
+    if (i === quiz[index].a) {
+        score++;
+        alert("Jawaban Benar! 🎉");
+    } else {
+        alert("Salah! 😭");
+    }
+}
+
+function nextQuestion() {
+    index++;
+    if (index >= quiz.length) {
+        document.getElementById("question").innerText = "Kuis Selesai!";
+        document.getElementById("options").innerHTML = "";
+        document.getElementById("score").innerText = `Nilai Kamu: ${score} / ${quiz.length}`;
+        return;
+    }
+    loadQuestion();
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
